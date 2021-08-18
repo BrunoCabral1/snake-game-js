@@ -3,8 +3,15 @@
 <body onKeyDown="pegadirecao(event.keyCode);">
 
 <h2 align="center">Bruno Cabral</h2>
+<h1> <div align="center" id="addPontos"></div></h1>
+
 
 <div id=principal></div>
+ <p align="center">
+ <input type="button" value="Reiniciar Jogo" id="btReiniciar">
+ <input type="button" value="Dificuldade" id="btVelocidade">
+ <input type="button" value="Convidar amigo" id="btAmigo">
+     </p>
 <script>
     tabuleiro="<table align=center border=1>";
     for(x=0;x<10;x++){
@@ -13,12 +20,14 @@
             tabuleiro+="<td id=td"+x+"_"+y+" style='width:30px; height:30px;'> </td>";
         tabuleiro+="</tr>";
     }
+    var addPontos=document.getElementById("addPontos");
     document.getElementById('principal').innerHTML=tabuleiro+"</table>";
     cobra=[[5,0]];
     direcao=2;
     mx=parseInt(Math.random()*10);
     my=parseInt(Math.random()*10);
     vivo=true;
+    soma=0
     function reiniciarJogo() {
             document.getElementById('principal').innerHTML = tabuleiro + "</table>";
             cobra = [[5, 0]];
@@ -38,6 +47,8 @@
             cobra[x][0]=cobra[x-1][0];
             cobra[x][1]=cobra[x-1][1];
         }
+          	addPontos.textContent=soma;
+
         if(direcao==0)cobra[0][1]--;
         if(direcao==1)cobra[0][0]--;
         if(direcao==2)cobra[0][1]++;
@@ -49,6 +60,11 @@
         if(vivo)setTimeout('anda()',300);
         else alert('Fim de jogo');
     }
+     var btVelocidade=document.getElementById("btVelocidade");
+    btVelocidade.addEventListener("click", velocidadeCobra);
+    function velocidadeCobra(){
+      setTimeout('anda()', 800);
+    }
     anda();
     function pegadirecao(tecla){
         /*alert(tecla);*/
@@ -56,6 +72,16 @@
         if(tecla==38)direcao=1;
         if(tecla==39)direcao=2;
         if(tecla==40)direcao=3;
+    }
+    var btReiniciar=document.getElementById("btReiniciar");
+    btReiniciar.addEventListener("click", reiniciarGame);
+    function reiniciarGame(){
+      location.reload(); 
+    }
+      btAmigo=document.getElementById("btAmigo");
+    btAmigo.addEventListener("click",convidarAmigo);
+    function convidarAmigo (){
+
     }
 </script>
 </body>
